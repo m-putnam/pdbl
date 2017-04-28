@@ -1,0 +1,3 @@
+[submodule "lalr-scm"]
+	path = lalr-scm
+	url = https://github.com/schemeway/lalr-scm.git
