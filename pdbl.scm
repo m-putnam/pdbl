@@ -10,13 +10,19 @@
 (load "lalr-scm/lalr.scm")
 
 (define *tape* #())	; Tape operated on by the machine
-(define *position* 0)	; Current position of tape head
+(define *pos* 0)	; Current position of tape head
 (define *state* 's1)	; Current state of machine
 
 (define (setup tape pos state)
   (set! *tape* tape)
-  (set! *position* pos)
+  (set! *pos* pos)
   (set! *state* state))
 
 (define (set-state! state)
   (set! *state* state))
+
+(define (movl)
+  (set! *pos* (- *pos* 1)))
+
+(define (movr)
+  (set! *pos* (+ *pos* 1)))
