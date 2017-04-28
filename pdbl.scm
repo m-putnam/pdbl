@@ -1,4 +1,3 @@
-;;;
 ;;; Interpreter for P", the language for simulation of a Turing machine with
 ;;; left-infinite tape developed by Corrado Böhm in 1964.
 ;;;
@@ -6,6 +5,7 @@
 ;;
 ;; This program utilizes the lalr-scm parser generation library, which is free
 ;; software licensed under the GNU LGPL.
+;;
 
 (load "lalr-scm/lalr.scm")
 
@@ -21,8 +21,21 @@
 (define (set-state! state)
   (set! *state* state))
 
+(define (set-pos! pos)
+  (set! *pos* pos))
+
 (define (movl)
   (set! *pos* (- *pos* 1)))
 
 (define (movr)
   (set! *pos* (+ *pos* 1)))
+
+(define (write out)
+  (vector-set! *tape* *pos* out))
+
+(define (read)
+  (vector-ref *tape* *pos*))
+
+; Some example input to work with
+(define tape1
+  (list->vector '(0 1 1 1 0 _ _ _)))
