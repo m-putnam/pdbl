@@ -10,6 +10,8 @@
 
 ; (load "lalr-scm/lalr.scm")
 
+(use-modules (srfi srfi-42))	; Access to list-ec function
+
 (define *tape* #())	; Tape operated on by the machine
 (define *position* 0)	; Current position of tape head
 (define *base* 0)	; Largest digit in notation
@@ -48,12 +50,20 @@
 (define (R)
   (set! *position* (+ *position* 1)))
 
+(define (r)
+  (Lambda)
+  (R))
+
+(define (ntimes func)
+  (list-ec (: i *base*)
+	   (func)))
+
 (define (While func)
   (while (neq (read) 0)
 	 (func)))
 
 ; Some example input to work with
 (define tape1
-  (list->vector '(0 1 1 1 1 0 _ _ _)))
+  (list->vector '(_ _ 0 1 1 1 1 0 _ _ _)))
 
-(setup tape1 0 1)
+(setup tape1 2 2)
