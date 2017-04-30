@@ -13,11 +13,13 @@
 (define *tape* #())	; Tape operated on by the machine
 (define *position* 0)	; Current position of tape head
 (define *state* 's1)	; Current state of machine
+(define *base* 0)	; Largest digit in notation
 
-(define (setup tape pos state)
+(define (setup tape pos state base)
   (set! *tape* tape)
   (set! *position* pos)
-  (set! *state* state))
+  (set! *state* state)
+  (set! *base* base))
 
 (define (set-state! state)
   (set! *state* state))
@@ -40,10 +42,15 @@
 (define (neq a b)
   (not (= a b)))
 
-; Increment square & move head left
+; Increment square & then move head left if possible
 (define (Lambda)
-  (write (+ (read) 1))
-  (movl))
+  (if (Alpha)
+    (write 1)
+    (if (eq? (read) *base*)
+      (write 0)
+      (write (+ (read) 1))))
+  (if (neq *position* 0)
+    (movl)))
 
 (define (Alpha)
   (eq? (read) '_))
@@ -56,4 +63,4 @@
 (define tape1
   (list->vector '(0 1 1 1 1 0 _ _ _)))
 
-(setup tape1 0 's1)
+(setup tape1 0 's1 1)
