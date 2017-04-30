@@ -36,6 +36,27 @@
 (define (read)
   (vector-ref *tape* *pos*))
 
+(define (neq a b)
+  (not (= a b)))
+
+; Increment square & move head left
+(define (lambda-operator)
+  (write (+ (read) 1))
+  (movl))
+
+(define (while-tape func)
+  (while (neq (read) 0)
+	 (func)))
+
 ; Some example input to work with
 (define tape1
-  (list->vector '(0 1 1 1 0 _ _ _)))
+  (list->vector '(1 1 1 1 0 _ _ _)))
+
+(setup tape1 0 's1)
+
+(newline)
+(do ()
+  ((not (= (read) 1)))
+  (format #t "~d" (read))
+  (newline)
+  (movr))
