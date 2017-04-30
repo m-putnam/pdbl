@@ -22,12 +22,6 @@
 (define (set-pos! pos)
   (set! *position* pos))
 
-(define (movl)
-  (set! *position* (- *position* 1)))
-
-(define (movr)
-  (set! *position* (+ *position* 1)))
-
 (define (write out)
   (vector-set! *tape* *position* out))
 
@@ -36,6 +30,9 @@
 
 (define (neq a b)
   (not (= a b)))
+
+(define (Alpha)
+  (eq? (read) '_))
 
 ; Write c_(i+1) to square, then move head left iff possible. 0 is equivalent to
 ; (+ *base* 1) is equivalent to _, hence over- and under-flow is intentional.
@@ -46,12 +43,12 @@
       (write 0)
       (write (+ (read) 1))))
   (if (neq *position* 0)
-    (movl)))
+    (set! *position* (- *position* 1))))
 
-(define (Alpha)
-  (eq? (read) '_))
+(define (R)
+  (set! *position* (+ *position* 1)))
 
-(define (while-tape func)
+(define (While func)
   (while (neq (read) 0)
 	 (func)))
 
