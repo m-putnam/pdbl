@@ -8,7 +8,7 @@
 ;; GNU Guile, so interoperability cannot be guaranteed.
 ;;
 
-(load "lalr-scm/lalr.scm")
+; (load "lalr-scm/lalr.scm")
 
 (define *tape* #())	; Tape operated on by the machine
 (define *position* 0)	; Current position of tape head
@@ -37,7 +37,8 @@
 (define (neq a b)
   (not (= a b)))
 
-; Increment square & then move head left if possible
+; Write c_(i+1) to square, then move head left iff possible. 0 is equivalent to
+; (+ *base* 1) is equivalent to _, hence over- and under-flow is intentional.
 (define (Lambda)
   (if (Alpha)
     (write 1)
