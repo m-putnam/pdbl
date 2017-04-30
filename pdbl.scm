@@ -12,17 +12,12 @@
 
 (define *tape* #())	; Tape operated on by the machine
 (define *position* 0)	; Current position of tape head
-(define *state* 's1)	; Current state of machine
 (define *base* 0)	; Largest digit in notation
 
-(define (setup tape pos state base)
+(define (setup tape pos base)
   (set! *tape* tape)
   (set! *position* pos)
-  (set! *state* state)
   (set! *base* base))
-
-(define (set-state! state)
-  (set! *state* state))
 
 (define (set-pos! pos)
   (set! *position* pos))
@@ -63,4 +58,4 @@
 (define tape1
   (list->vector '(0 1 1 1 1 0 _ _ _)))
 
-(setup tape1 0 's1 1)
+(setup tape1 0 1)
