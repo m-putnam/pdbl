@@ -50,10 +50,6 @@
 (define (R)
   (set! *position* (+ *position* 1)))
 
-(define (r)
-  (Lambda)
-  (R))
-
 (define (ntimes func)
   (list-ec (: i *base*)
 	   (func)))
@@ -67,3 +63,11 @@
   (list->vector '(_ _ 0 1 1 1 1 0 _ _ _)))
 
 (setup tape1 2 2)
+
+(define (r)
+  (Lambda)
+  (R))
+
+(define (L)
+  (ntimes r)
+  (Lambda))
